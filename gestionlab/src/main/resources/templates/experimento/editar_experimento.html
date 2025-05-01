@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Experimento</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div class="form-container">
+    <h2>Editar Experimento</h2>
+    <form th:action="@{/experimento/actualizar}" th:object="${experimento}" method="post">
+        <input type="hidden" th:field="*{id}">
+
+        <label for="titulo">Título:</label>
+        <input type="text" id="titulo" th:field="*{titulo}" required>
+
+        <label for="descripcion">Descripción:</label>
+        <textarea id="descripcion" th:field="*{descripcion}" required></textarea>
+
+        <label for="fechaInicio">Fecha de Inicio:</label>
+        <input type="date" id="fechaInicio" th:field="*{fechaInicio}" required>
+
+        <label for="fechaFin">Fecha de Fin:</label>
+        <input type="date" id="fechaFin" th:field="*{fechaFin}" required>
+
+        <label for="areaCientifica">Área Científica:</label>
+        <select id="areaCientifica" th:field="*{areaCientifica}" required>
+            <option th:each="area : ${areas}"
+                    th:value="${area.id}"
+                    th:text="${area.nombre}"
+                    th:selected="${area.id} == ${experimento.areaCientifica.id}">
+            </option>
+        </select>
+
+        <label for="investigador">Investigador:</label>
+        <select id="investigador" th:field="*{investigador}" required>
+            <option th:each="inv : ${investigadores}"
+                    th:value="${inv.id}"
+                    th:text="${inv.nombre}"
+                    th:selected="${inv.id} == ${experimento.investigador.id}">
+            </option>
+        </select>
+
+        <button type="submit">Actualizar</button>
+    </form>
+</div>
+</body>
+</html>

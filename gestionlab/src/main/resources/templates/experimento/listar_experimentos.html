@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Experimentos</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div class="table-container">
+    <h2>Lista de Experimentos</h2>
+    <a href="/experimento/crear_experimento" class="btn">Nuevo Experimento</a>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Título</th>
+            <th>Descripción</th>
+            <th>Inicio</th>
+            <th>Fin</th>
+            <th>Área Científica</th>
+            <th>Investigador</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="exp : ${experimentos}">
+            <td th:text="${exp.id}">1</td>
+            <td th:text="${exp.titulo}">Ejemplo</td>
+            <td th:text="${exp.descripcion}">Desc</td>
+            <td th:text="${exp.fechaInicio}">2025-01-01</td>
+            <td th:text="${exp.fechaFin}">2025-01-15</td>
+            <td th:text="${exp.areaCientifica.nombre}">Química</td>
+            <td th:text="${exp.investigador.nombre}">Dra. Ana</td>
+            <td>
+                <a th:href="@{'/experimento/editar/' + ${exp.id}}" class="btn">Editar</a>
+                <a th:href="@{'/experimento/eliminar/' + ${exp.id}}"
+                   onclick="return confirm('¿Estás seguro que deseas eliminar este experimento?');"
+                   class="btn-danger">Eliminar</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

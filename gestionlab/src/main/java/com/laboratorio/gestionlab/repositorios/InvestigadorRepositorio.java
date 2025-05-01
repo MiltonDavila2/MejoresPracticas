@@ -6,5 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface InvestigadorRepositorio extends JpaRepository<Investigador,Long> {
-    Investigador findByCedula(String cedula);
+    boolean existsByCedula(String cedula);
+    Investigador findByNombre(String nombre);
 }

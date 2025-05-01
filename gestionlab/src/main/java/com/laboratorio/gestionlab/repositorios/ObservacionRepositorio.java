@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ObservacionRepositorio extends JpaRepository<Observacion,Long> {
-    Observacion findByNombre(String nombre);
+
 }

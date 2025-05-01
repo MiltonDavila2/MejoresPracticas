@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AreaCientificaRepositorio extends JpaRepository<AreaCientifica,Long> {
     AreaCientifica findByNombre(String nombre);
+    boolean existsByNombre(String nombre);
 }

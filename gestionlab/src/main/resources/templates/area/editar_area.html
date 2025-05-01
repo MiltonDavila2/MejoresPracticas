@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Editar Área Científica</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+<h1>Editar Área Científica</h1>
+<form th:action="@{/area/actualizar}" method="post" th:object="${area}">
+    <input type="hidden" th:field="*{id}" />
+    <div>
+        <label>Nombre:</label>
+        <input type="text" th:field="*{nombre}" required />
+    </div>
+    <div>
+        <button type="submit">Actualizar</button>
+        <a th:href="@{/area/listar}">Cancelar</a>
+    </div>
+</form>
+</body>
+</html>

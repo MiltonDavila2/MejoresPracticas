@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista de Áreas Científicas</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+<h1>Lista de Áreas Científicas</h1>
+
+<a th:href="@{/area/crear}">Crear Nueva Área</a>
+
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Acciones</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="area : ${areas}">
+        <td th:text="${area.id}">1</td>
+        <td th:text="${area.nombre}">Nombre</td>
+        <td>
+            <a th:href="@{'/area/editar/' + ${area.id}}">Editar</a> |
+            <a th:href="@{'/area/eliminar/' + ${area.id}}" onclick="return confirm('¿Estás seguro de eliminar esta área?')">Eliminar</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

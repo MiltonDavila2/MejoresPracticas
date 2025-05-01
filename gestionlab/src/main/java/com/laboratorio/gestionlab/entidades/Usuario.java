@@ -27,6 +27,12 @@ public class Usuario {
     public Usuario() {
     }
 
+    public Usuario(String password, String username, Rol rol) {
+        this.password = password;
+        this.username = username;
+        this.rol = rol;
+    }
+
     public Usuario(String username, String password, Rol rol, Investigador investigador) {
         this.username = username;
         this.password = password;

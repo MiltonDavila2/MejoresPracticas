@@ -18,13 +18,28 @@ public class Usuario {
     @JoinColumn(name = "rol_id", nullable = false)  // Esta anotación crea la columna rol_id
     private Rol rol;
 
+    @OneToOne
+    @JoinColumn(name="investigador_id", nullable = true)
+    private Investigador investigador;
+
+
+
     public Usuario() {
     }
 
-    public Usuario(String password, String username, Rol rol) {
-        this.password = password;
+    public Usuario(String username, String password, Rol rol, Investigador investigador) {
         this.username = username;
+        this.password = password;
         this.rol = rol;
+        this.investigador = investigador;
+    }
+
+    public Investigador getInvestigador() {
+        return investigador;
+    }
+
+    public void setInvestigador(Investigador investigador) {
+        this.investigador = investigador;
     }
 
     public Long getId() {

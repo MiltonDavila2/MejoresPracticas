@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Editar Investigador</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<h1>Editar Investigador</h1>
+
+<form th:action="@{/investigador/actualizar}" th:object="${investigador}" method="post">
+    <input type="hidden" th:field="*{id}"/>
+
+    <div>
+        <label for="cedula">Cédula:</label>
+        <input type="text" id="cedula" th:field="*{cedula}" required>
+    </div>
+    <div>
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" th:field="*{nombre}" required>
+    </div>
+    <div>
+        <label for="especialidad">Especialidad:</label>
+        <input type="text" id="especialidad" th:field="*{especialidad}" required>
+    </div>
+    <div>
+        <label for="institucion">Institución:</label>
+        <input type="text" id="institucion" th:field="*{institucion}" required>
+    </div>
+    <button type="submit">Actualizar</button>
+</form>
+
+<br>
+<div style="text-align:center">
+    <a th:href="@{/investigador/listar_investigadores}">Volver a la lista</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista de Investigadores</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<h1>Lista de Investigadores</h1>
+
+<div style="text-align:center; margin-bottom: 20px;">
+    <a th:href="@{/investigador/crear}">
+        <button>Crear Nuevo Investigador</button>
+    </a>
+</div>
+
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Cédula</th>
+        <th>Nombre</th>
+        <th>Especialidad</th>
+        <th>Institución</th>
+        <th>Acciones</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="inv : ${investigadores}">
+        <td th:text="${inv.id}"></td>
+        <td th:text="${inv.cedula}"></td>
+        <td th:text="${inv.nombre}"></td>
+        <td th:text="${inv.especialidad}"></td>
+        <td th:text="${inv.institucion}"></td>
+        <td>
+            <a th:href="@{|/investigador/editar/${inv.id}|}">Editar</a> |
+            <a th:href="@{|/investigador/eliminar/${inv.id}|}" onclick="return confirm('¿Estás seguro de eliminar este investigador?');">Eliminar</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

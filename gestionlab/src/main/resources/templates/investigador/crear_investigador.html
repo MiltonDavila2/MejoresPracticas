@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Crear Investigador</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<h1>Crear Investigador</h1>
+
+<form th:action="@{/investigador/guardar}" th:object="${investigador}" method="post">
+    <div>
+        <label for="cedula">Cédula:</label>
+        <input type="text" id="cedula" th:field="*{cedula}" required>
+    </div>
+    <div>
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" th:field="*{nombre}" required>
+    </div>
+    <div>
+        <label for="especialidad">Especialidad:</label>
+        <input type="text" id="especialidad" th:field="*{especialidad}" required>
+    </div>
+    <div>
+        <label for="institucion">Institución:</label>
+        <input type="text" id="institucion" th:field="*{institucion}" required>
+    </div>
+    <button type="submit">Guardar</button>
+</form>
+
+<br>
+<div style="text-align:center">
+    <a th:href="@{/investigador/listar_investigadores}">Volver a la lista</a>
+</div>
+</body>
+</html>

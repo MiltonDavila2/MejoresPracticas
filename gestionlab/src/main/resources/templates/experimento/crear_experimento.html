@@ -15,6 +15,9 @@
         <label for="descripcion">Descripción:</label>
         <textarea id="descripcion" th:field="*{descripcion}" required></textarea>
 
+
+        <input type="hidden" th:field="*{estado}" value="En Proceso"/>
+
         <label for="fechaInicio">Fecha de Inicio:</label>
         <input type="date" id="fechaInicio" th:field="*{fechaInicio}" required>
 

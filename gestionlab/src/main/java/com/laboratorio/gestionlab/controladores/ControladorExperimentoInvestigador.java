@@ -41,8 +41,9 @@ public class ControladorExperimentoInvestigador {
 
     @GetMapping("/crear_experimento")
     public String crearexperimento(Model modelo){
-
-        modelo.addAttribute("experimento", new Experimento());
+        Experimento experimento = new Experimento();
+        experimento.setEstado("En proceso");
+        modelo.addAttribute("experimento", experimento);
         modelo.addAttribute("areas", AreaServicio.listarAreasCientificas());
         modelo.addAttribute("investigadores", InvestigadorServicio.ListarInvestigadores());
 
@@ -77,6 +78,7 @@ public class ControladorExperimentoInvestigador {
         if (experimentoExistente != null) {
             experimentoExistente.setTitulo(experimento.getTitulo());
             experimentoExistente.setDescripcion(experimento.getDescripcion());
+            experimentoExistente.setEstado(experimento.getEstado());
             experimentoExistente.setFechaInicio(experimento.getFechaInicio());
             experimentoExistente.setFechaFin(experimento.getFechaFin());
             experimentoExistente.setAreaCientifica(experimento.getAreaCientifica());

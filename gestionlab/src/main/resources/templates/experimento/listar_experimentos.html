@@ -15,6 +15,7 @@
             <th>ID</th>
             <th>Título</th>
             <th>Descripción</th>
+            <th>Estado</th>
             <th>Inicio</th>
             <th>Fin</th>
             <th>Área Científica</th>
@@ -27,6 +28,7 @@
             <td th:text="${exp.id}">1</td>
             <td th:text="${exp.titulo}">Ejemplo</td>
             <td th:text="${exp.descripcion}">Desc</td>
+            <td th:text="${exp.estado}">Activo</td>
             <td th:text="${exp.fechaInicio}">2025-01-01</td>
             <td th:text="${exp.fechaFin}">2025-01-15</td>
             <td th:text="${exp.areaCientifica.nombre}">Química</td>

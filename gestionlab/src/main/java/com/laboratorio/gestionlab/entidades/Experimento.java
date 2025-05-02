@@ -17,9 +17,12 @@ public class Experimento {
 
     private String descripcion;
 
+    private String estado;
+
     private LocalDate fechaInicio;
 
     private LocalDate fechaFin;
+
 
     @ManyToOne
     @JoinColumn(name="investigador_id")
@@ -32,13 +35,22 @@ public class Experimento {
     @OneToMany(mappedBy = "experimento", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Ensayo> ensayos;
 
-    public Experimento(String titulo, String descripcion, LocalDate fechaInicio, LocalDate fechaFin, AreaCientifica areaCientifica, Investigador investigador) {
+    public Experimento(String titulo, String descripcion, String estado,LocalDate fechaInicio, LocalDate fechaFin, AreaCientifica areaCientifica, Investigador investigador) {
         this.titulo = titulo;
         this.descripcion = descripcion;
+        this.estado = estado;
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
         this.areaCientifica = areaCientifica;
         this.investigador = investigador;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 
     public Experimento() {

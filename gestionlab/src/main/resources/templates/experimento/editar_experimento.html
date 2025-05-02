@@ -17,6 +17,13 @@
         <label for="descripcion">Descripción:</label>
         <textarea id="descripcion" th:field="*{descripcion}" required></textarea>
 
+        <label for="estado"></label>
+        <select id="estado" th:field="*{estado}" required>
+            <option value="En Proceso">En Proceso</option>
+            <option value="Terminado">Terminado</option>
+            <option value="Fallido">Fallido</option>
+        </select>
+
         <label for="fechaInicio">Fecha de Inicio:</label>
         <input type="date" id="fechaInicio" th:field="*{fechaInicio}" required>
 

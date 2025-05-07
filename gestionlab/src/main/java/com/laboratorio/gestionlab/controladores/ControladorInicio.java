@@ -15,4 +15,10 @@ public class ControladorInicio {
     public String Error(){
         return "error";
     }
+
+    @GetMapping("/index")
+    public String Index(){
+        return "index";
+    }
+
 }

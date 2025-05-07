@@ -13,4 +13,5 @@ public interface EnsayoRepositorio extends JpaRepository<Ensayo,Long> {
     Ensayo findByTitulo(String titulo);
     List<Ensayo> findByFecha(LocalDate fecha);
     boolean existsByTitulo(String titulo);
+    List<Ensayo> findByExperimentoId(Long id);
 }

@@ -51,7 +51,7 @@ public class SecurityConfiguration {
                 )
                 .formLogin(login -> login
                         .loginPage("/login")
-                        .defaultSuccessUrl("/usuarios/listar",true)
+                        .defaultSuccessUrl("/index",true)
                         .permitAll()
                 )
                 .logout(logout -> logout

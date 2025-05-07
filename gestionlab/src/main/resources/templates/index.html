@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Indice</title>
+    <link rel="stylesheet" href="/css/index.css" />
+</head>
+<body>
+
+    <header>
+        <div class="logo">Gestionlab</div>
+        <nav>
+            <a th:href="@{/index}">Inicio</a>
+            <a th:href="@{/usuarios/listar}">Usuarios</a>
+            <a th:href="@{investigador/listar_investigadores}">Investigador</a>
+            <a th:href="@{area/listar_area}">Area</a>
+            <a th:href="@{experimento/listar_experimentos}">Experimento</a>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Bienvenido a gestionlab</h1>
+    </main>
+
+</body>
+</html>

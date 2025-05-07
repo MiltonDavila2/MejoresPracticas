@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Ensayos del Experimento</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<h2>Ensayos del Experimento: <span th:text="${experimento.titulo}"></span></h2>
+
+<a th:href="@{'/ensayo/crear/' + ${experimento.id}}" class="btn">Nuevo Ensayo</a>
+
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Título</th>
+        <th>Fecha</th>
+        <th>Condiciones</th>
+        <th>Resultado</th>
+        <th>Exitoso</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="ensayo : ${ensayos}">
+        <td th:text="${ensayo.id}"></td>
+        <td th:text="${ensayo.titulo}"></td>
+        <td th:text="${ensayo.fecha}"></td>
+        <td th:text="${ensayo.condiciones}"></td>
+        <td th:text="${ensayo.resultado}"></td>
+        <td th:text="${ensayo.exitoso ? 'Sí' : 'No'}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<a href="/experimento/listar_experimentos" class="btn">Volver</a>
+</body>
+</html>

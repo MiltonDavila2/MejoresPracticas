@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Crear Ensayo</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<h2>Nuevo Ensayo para el Experimento: <span th:text="${experimento.titulo}"></span></h2>
+
+<form th:action="@{'/ensayo/guardar/' + ${experimento.id}}" th:object="${ensayo}" method="post">
+    <div>
+        <label for="titulo">Título:</label>
+        <input type="text" th:field="*{titulo}" id="titulo" required />
+    </div>
+    <div>
+        <label for="fecha">Fecha:</label>
+        <input type="date" th:field="*{fecha}" id="fecha" readonly th:value="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}" />
+    </div>
+    <div>
+        <label for="condiciones">Condiciones:</label>
+        <input type="text" th:field="*{condiciones}" id="condiciones" />
+    </div>
+    <div>
+        <label for="resultado">Resultado:</label>
+        <input type="text" th:field="*{resultado}" id="resultado" />
+    </div>
+    <div>
+        <label for="exitoso">¿Exitoso?:</label>
+        <input type="checkbox" th:field="*{exitoso}" id="exitoso" />
+    </div>
+    <div style="text-align: center;">
+        <button type="submit">Guardar</button>
+    </div>
+</form>
+
+<div style="text-align: center; margin-top: 20px;">
+    <a th:href="@{'/ensayo/listar_ensayo/' + ${experimento.id}}" class="btn">Cancelar</a>
+</div>
+</body>
+</html>

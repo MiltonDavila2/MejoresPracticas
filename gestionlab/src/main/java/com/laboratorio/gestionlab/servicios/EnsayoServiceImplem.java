@@ -48,4 +48,9 @@ public class EnsayoServiceImplem implements EnsayoService{
     public boolean existeEnsayoPorTitulo(String Titulo) {
         return repositorio.existsByTitulo(Titulo);
     }
+
+    @Override
+    public List<Ensayo> listarEnsayosPorExperimentoId(Long idExperimento) {
+        return repositorio.findByExperimentoId(idExperimento);
+    }
 }

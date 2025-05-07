@@ -38,6 +38,7 @@
                 <a th:href="@{'/experimento/eliminar/' + ${exp.id}}"
                    onclick="return confirm('¿Estás seguro que deseas eliminar este experimento?');"
                    class="btn-danger">Eliminar</a>
+                <a th:href="@{'/ensayo/listar_ensayo/' +${exp.id}}" class="btn"> Ver Ensayos</a>
             </td>
         </tr>
         </tbody>

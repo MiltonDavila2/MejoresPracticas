@@ -79,8 +79,13 @@ public class ControladorExperimentoInvestigador {
             experimentoExistente.setTitulo(experimento.getTitulo());
             experimentoExistente.setDescripcion(experimento.getDescripcion());
             experimentoExistente.setEstado(experimento.getEstado());
-            experimentoExistente.setFechaInicio(experimento.getFechaInicio());
-            experimentoExistente.setFechaFin(experimento.getFechaFin());
+            if (experimento.getFechaInicio() != null && !experimento.getFechaInicio().equals(experimentoExistente.getFechaInicio())) {
+                experimentoExistente.setFechaInicio(experimento.getFechaInicio());
+            }
+
+            if (experimento.getFechaFin() != null && !experimento.getFechaFin().equals(experimentoExistente.getFechaFin())) {
+                experimentoExistente.setFechaFin(experimento.getFechaFin());
+            };
             experimentoExistente.setAreaCientifica(experimento.getAreaCientifica());
             experimentoExistente.setInvestigador(experimento.getInvestigador());
             experimentoServicio.guardarExperimento(experimentoExistente);

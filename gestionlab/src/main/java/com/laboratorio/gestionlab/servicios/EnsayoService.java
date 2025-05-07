@@ -20,6 +20,8 @@ public interface EnsayoService {
 
     public boolean existeEnsayoPorTitulo(String Titulo);
 
+    public List<Ensayo> listarEnsayosPorExperimentoId(Long idExperimento);
+
 
 
 }

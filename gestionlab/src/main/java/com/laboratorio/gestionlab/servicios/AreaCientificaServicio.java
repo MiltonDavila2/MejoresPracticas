@@ -1,6 +1,7 @@
 package com.laboratorio.gestionlab.servicios;
 
 import com.laboratorio.gestionlab.entidades.AreaCientifica;
+import com.laboratorio.gestionlab.entidades.Experimento;
 
 import java.util.List;
 
@@ -11,4 +12,5 @@ public interface AreaCientificaServicio {
     public AreaCientifica obtenerAreaCientificaPorNombre(String nombre);
     public void eliminarAreaCientificaPorId(Long id);
     public boolean existeAreaCientificaporNombre(String nombre);
+    public List<Experimento> listarExperimentosPorAreaCientifica(Long idAreaCientifica);
 }

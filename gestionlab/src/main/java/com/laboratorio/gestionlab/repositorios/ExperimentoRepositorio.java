@@ -1,5 +1,6 @@
 package com.laboratorio.gestionlab.repositorios;
 
+import com.laboratorio.gestionlab.entidades.AreaCientifica;
 import com.laboratorio.gestionlab.entidades.Experimento;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -20,4 +21,7 @@ public interface ExperimentoRepositorio extends JpaRepository<Experimento,Long> 
                                           @Param("fechaFin") LocalDate fechaFin);
 
     boolean existsByTitulo(String titulo);
+
+    List<Experimento> findByAreaCientifica(AreaCientifica area);
+
 }

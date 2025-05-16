@@ -34,10 +34,10 @@
             <td th:text="${exp.areaCientifica.nombre}">Química</td>
             <td th:text="${exp.investigador.nombre}">Dra. Ana</td>
             <td>
-                <a th:href="@{'/experimento/editar/' + ${exp.id}}" class="btn">Editar</a>
+                <a th:href="@{'/experimento/editar/' + ${exp.id}}" class="btn">Editar</a> |
                 <a th:href="@{'/experimento/eliminar/' + ${exp.id}}"
                    onclick="return confirm('¿Estás seguro que deseas eliminar este experimento?');"
-                   class="btn-danger">Eliminar</a>
+                   class="btn-danger">Eliminar</a> |
                 <a th:href="@{'/ensayo/listar_ensayo/' +${exp.id}}" class="btn"> Ver Ensayos</a>
             </td>
         </tr>

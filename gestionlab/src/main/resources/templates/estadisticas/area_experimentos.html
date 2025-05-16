@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Estadistica por Area Cientifica: Por Experimentos</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+
+</head>
+<body>
+
+    <h1>Estadistica por Area Cientifica: Por Experimentos</h1>
+
+<table>
+
+    <thead>
+        <tr>
+            <th>Área Científica</th>
+            <th>Total Experimentos</th>
+            <th>Experimentos Exitosos</th>
+            <th>Experimentos Fallidos</th>
+            <th> % Exito Experimentos</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr th:each="item : ${estadisticas}">
+            <td th:text="${item.nombreArea}">Área Científica</td>
+            <td th:text="${item.totalExperimentos}">0</td>
+            <td th:text="${item.exitososExperimentos}">0</td>
+            <td th:text="${item.fallidosExperimentos}">0</td>
+            <td th:text="${item.tasaExitoExperimentos + '%'}">0%</td>
+        </tr>
+    </tbody>
+</table>
+    <a href="/" class="btn">Volver</a>
+</body>
+</html>

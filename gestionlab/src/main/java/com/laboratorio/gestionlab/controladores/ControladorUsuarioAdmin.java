@@ -50,11 +50,11 @@ public class ControladorUsuarioAdmin {
         Rol rol = rolRepositorio.findById(usuario.getRol().getId()).orElse(null);
 
         if (usuarioServicio.estaElUsuario(usuario.getUsername())) {
-            return "redirect:/usuarios/listar"; // Redirigir si el usuario ya existe
+            return "redirect:/usuarios/listar";
         }
 
         if (rol != null) {
-            usuario.setRol(rol); // Establecemos un solo rol
+            usuario.setRol(rol);
         }
 
 

@@ -139,11 +139,11 @@ public class ReporteEstadisticoImplem implements ReporteEstadisticoServicio{
                 double tasaExitoExperimentos = 0;
 
                 if(totalEnsayos!=0){
-                    tasaExitoEnsayos= (double) (ensayosExitosos * 100) /totalEnsayos;
+                    tasaExitoEnsayos= BigDecimal.valueOf((double) (ensayosExitosos * 100) /totalEnsayos).setScale(2, RoundingMode.HALF_UP).doubleValue();
                 }
 
                 if(totalExperimentos!=0){
-                    tasaExitoExperimentos= (double) (exitososExperimentos * 100) /totalExperimentos;
+                    tasaExitoExperimentos= BigDecimal.valueOf((double) (exitososExperimentos * 100) /totalExperimentos).setScale(2, RoundingMode.HALF_UP).doubleValue();
                 }
 
 

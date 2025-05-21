@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -21,6 +22,9 @@ public class ControladorEstadisticas {
     public String estadisticasAreaEnsayos(Model modelo) {
         List<EstadisticasAreaDTO> estadisticas = servicio.obtenerEstadisticoOrdenadoEnsayos();
         modelo.addAttribute("estadisticas", estadisticas);
+        modelo.addAttribute("chartData", getChartDataEnsayosTotales());
+        modelo.addAttribute("chartData2",getChartDatosPorcentajeExitosoEnsayo());
+
         return "estadisticas/area_ensayos";
     }
 
@@ -28,6 +32,66 @@ public class ControladorEstadisticas {
     public String estadisticasAreaExperimentos(Model modelo) {
         List<EstadisticasAreaDTO> estadisticas = servicio.obtenerEstadisticoOrdenadoExperimentos();
         modelo.addAttribute("estadisticas", estadisticas);
+        modelo.addAttribute("chartData", getChartDataExperimentosTotales());
+        modelo.addAttribute("chartData2",getChartDataPorcentajeExitosoExperimento());
         return "estadisticas/area_experimentos";
+    }
+
+    private List<List<Object>> getChartDataEnsayosTotales(){
+        List<EstadisticasAreaDTO> estadisticas = servicio.obtenerEstadisticoOrdenadoEnsayos();
+        List<List<Object>> chartData = new ArrayList<>();
+
+        for (EstadisticasAreaDTO estadistica : estadisticas) {
+            List<Object> PuntoData = new ArrayList<>();
+            PuntoData.add(estadistica.getNombreArea());
+            PuntoData.add(estadistica.getTotalEnsayos());
+            chartData.add(PuntoData);
+        }
+
+        return chartData;
+    }
+
+    private List<List<Object>> getChartDatosPorcentajeExitosoEnsayo(){
+        List<EstadisticasAreaDTO> estadisticas = servicio.obtenerEstadisticoOrdenadoEnsayos();
+
+        List<List<Object>> charData = new ArrayList<>();
+
+        for (EstadisticasAreaDTO estadistica : estadisticas) {
+            List<Object> PuntoData = new ArrayList<>();
+            PuntoData.add(estadistica.getNombreArea());
+            PuntoData.add(estadistica.getTasaExitoEnsayos());
+            charData.add(PuntoData);
+        }
+
+        return charData;
+    }
+
+    private List<List<Object>> getChartDataExperimentosTotales(){
+        List<EstadisticasAreaDTO> estadisticas = servicio.obtenerEstadisticoOrdenadoExperimentos();
+        List<List<Object>> chartData = new ArrayList<>();
+
+        for (EstadisticasAreaDTO estadistica : estadisticas) {
+            List<Object> PuntoData = new ArrayList<>();
+            PuntoData.add(estadistica.getNombreArea());
+            PuntoData.add(estadistica.getTotalExperimentos());
+            chartData.add(PuntoData);
+        }
+
+        return chartData;
+    }
+
+    private List<List<Object>> getChartDataPorcentajeExitosoExperimento(){
+        List<EstadisticasAreaDTO> estadisticas = servicio.obtenerEstadisticoOrdenadoExperimentos();
+
+        List<List<Object>> charData = new ArrayList<>();
+
+        for (EstadisticasAreaDTO estadistica : estadisticas) {
+            List<Object> PuntoData = new ArrayList<>();
+            PuntoData.add(estadistica.getNombreArea());
+            PuntoData.add(estadistica.getTasaExitoExperimentos());
+            charData.add(PuntoData);
+        }
+
+        return charData;
     }
 }

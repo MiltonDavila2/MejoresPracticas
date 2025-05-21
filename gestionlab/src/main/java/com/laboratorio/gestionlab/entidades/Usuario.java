@@ -15,7 +15,7 @@ public class Usuario {
     private String password;
 
     @ManyToOne
-    @JoinColumn(name = "rol_id", nullable = false)  // Esta anotación crea la columna rol_id
+    @JoinColumn(name = "rol_id", nullable = false)
     private Rol rol;
 
     @OneToOne

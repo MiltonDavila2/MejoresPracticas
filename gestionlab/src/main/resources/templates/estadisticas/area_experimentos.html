@@ -4,12 +4,58 @@
     <meta charset="UTF-8">
     <title>Estadistica por Area Cientifica: Por Experimentos</title>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" th:inline="javascript">
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+        google.charts.setOnLoadCallback(drawColumnChart);
 
+        function drawChart() {
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Area Cientifica');
+            data.addColumn('number', 'Total Experimentos');
+            data.addRows([[${chartData}]]);
+            var options = {'title':'Experimentos totales por area cientifica',
+                'width':600,
+                'height':400,
+                'backgroundColor': '#f4f4f4'};
+            var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+            chart.draw(data, options);
+        }
+
+        function drawColumnChart(){
+            let rawData = /*[[${chartData2}]]*/ '[]';
+            rawData.unshift(['Área Científica', 'Porcentaje de Éxito']);
+            var data = google.visualization.arrayToDataTable(rawData);
+            var options = {
+                title: 'Porcentaje de éxito de experimentos por área científica',
+                width: 600,
+                height: 400,
+                backgroundColor: '#f4f4f4',
+                legend: { position: 'none' },
+                hAxis: {
+                    title: 'Área Científica'
+                },
+                vAxis: {
+                    title: '% Éxito',
+                    minValue: 0,
+                    maxValue: 100
+                }
+            };
+            var chart = new google.visualization.ColumnChart(document.getElementById('chart_div2'));
+            chart.draw(data, options);
+        }
+
+
+    </script>
 </head>
 <body>
 
     <h1>Estadistica por Area Cientifica: Por Experimentos</h1>
-
+    <div class="charts-container">
+        <div id="chart_div"></div>
+        <div id="chart_div2"></div>
+    </div>
 <table>
 
     <thead>

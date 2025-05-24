@@ -1,6 +1,7 @@
 package com.laboratorio.gestionlab.controladores;
 
 import com.laboratorio.gestionlab.DTO.EstadisticasAreaDTO;
+import com.laboratorio.gestionlab.DTO.EstadisticasInvestigadorDTO;
 import com.laboratorio.gestionlab.servicios.ReporteEstadisticoServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,6 +36,14 @@ public class ControladorEstadisticas {
         modelo.addAttribute("chartData", getChartDataExperimentosTotales());
         modelo.addAttribute("chartData2",getChartDataPorcentajeExitosoExperimento());
         return "estadisticas/area_experimentos";
+    }
+
+
+    @GetMapping("/investigadores")
+    public String estadisticasInvestigadores(Model modelo){
+        List<EstadisticasInvestigadorDTO> estadisticas = servicio.obtenerEstadisticoOrdenadoPorInvestigador();
+        modelo.addAttribute("estadisticas", estadisticas);
+        return "estadisticas/investigadores";
     }
 
     private List<List<Object>> getChartDataEnsayosTotales(){

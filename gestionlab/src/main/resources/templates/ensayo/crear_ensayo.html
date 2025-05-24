@@ -13,8 +13,7 @@
         <input type="text" th:field="*{titulo}" id="titulo" required />
     </div>
     <div>
-        <label for="fecha">Fecha:</label>
-        <input type="date" th:field="*{fecha}" id="fecha" readonly th:value="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}" />
+        <input type="hidden" th:field="*{fecha}" id="fecha" th:value="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}" />
     </div>
     <div>
         <label for="condiciones">Condiciones:</label>

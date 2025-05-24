@@ -1,6 +1,8 @@
 package com.laboratorio.gestionlab.servicios;
 
+import com.laboratorio.gestionlab.entidades.Experimento;
 import com.laboratorio.gestionlab.entidades.Investigador;
+import com.laboratorio.gestionlab.repositorios.ExperimentoRepositorio;
 import com.laboratorio.gestionlab.repositorios.InvestigadorRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +14,9 @@ public class InvestigadorServicioImplem implements InvestigadorServicio{
 
     @Autowired
     private InvestigadorRepositorio repositorio;
+
+    @Autowired
+    private ExperimentoRepositorio experimentoRepositorio;
 
     @Override
     public List<Investigador> ListarInvestigadores() {
@@ -46,5 +51,14 @@ public class InvestigadorServicioImplem implements InvestigadorServicio{
     @Override
     public void eliminarInvestigador(Long id) {
         repositorio.deleteById(id);
+    }
+
+    @Override
+    public List<Experimento> listarExperimentosPorInvestigador(Long idInvestigador) {
+        if(EncontrarInvestigadorPorID(idInvestigador)==null){
+            return null;
+        }
+
+        return experimentoRepositorio.findByInvestigador(EncontrarInvestigadorPorID(idInvestigador));
     }
 }

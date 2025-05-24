@@ -2,6 +2,7 @@ package com.laboratorio.gestionlab.repositorios;
 
 import com.laboratorio.gestionlab.entidades.AreaCientifica;
 import com.laboratorio.gestionlab.entidades.Experimento;
+import com.laboratorio.gestionlab.entidades.Investigador;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -23,5 +24,7 @@ public interface ExperimentoRepositorio extends JpaRepository<Experimento,Long> 
     boolean existsByTitulo(String titulo);
 
     List<Experimento> findByAreaCientifica(AreaCientifica area);
+
+    List<Experimento> findByInvestigador(Investigador investigador);
 
 }

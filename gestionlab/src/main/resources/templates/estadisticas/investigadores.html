@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Estadisticas investigadores</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+    <h1>Estadisticas por Investigadores</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre Investigador</th>
+                <th>Area Cientifica mas influyente</th>
+                <th>Tasa de exito experimentos (General)</th>
+                <th>Tasa de exito por ensayo (Por cada experimento)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="estadistica : ${estadisticas}">
+                <td th:text="${estadistica.nombreInvestigador}"></td>
+                <td th:text="${estadistica.areaFuerte}"></td>
+                <td th:text="${estadistica.tasaExitoExperimentos}"></td>
+                <td th:text="${estadistica.tasaExitoEnsayos}"></td>
+            </tr>
+    </table>
+
+    <a href="/" class="btn">Volver</a>
+</body>
+</html>

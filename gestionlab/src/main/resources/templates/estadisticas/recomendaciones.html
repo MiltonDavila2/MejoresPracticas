@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Recomendaciones Investigadores</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+    <h1>Recomendaciones investigadores a traves de estadisticas de Area y de Investigadores</h1>
+
+    <table>
+
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Recomendación</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="recomendacion, iterStat : ${recomendaciones} ">
+                <td th:text="${iterStat.index + 1}"></td>
+                <td th:text="${recomendacion}"></td>
+            </tr>
+        </tbody>
+
+    </table>
+
+    <a href="/" class="btn">Volver</a>
+</body>
+</html>

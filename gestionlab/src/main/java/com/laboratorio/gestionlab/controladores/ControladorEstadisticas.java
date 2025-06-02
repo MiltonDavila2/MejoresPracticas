@@ -46,6 +46,15 @@ public class ControladorEstadisticas {
         return "estadisticas/investigadores";
     }
 
+    @GetMapping("/recomendaciones")
+    public String recomendacionesInvestigadores(Model modelo){
+        List<String> recomendaciones = servicio.generarRecomendacionesParaInvestigadores();
+        modelo.addAttribute("recomendaciones", recomendaciones);
+        return "estadisticas/recomendaciones";
+    }
+
+
+
     private List<List<Object>> getChartDataEnsayosTotales(){
         List<EstadisticasAreaDTO> estadisticas = servicio.obtenerEstadisticoOrdenadoEnsayos();
         List<List<Object>> chartData = new ArrayList<>();

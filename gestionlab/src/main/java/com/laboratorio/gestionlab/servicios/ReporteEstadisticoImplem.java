@@ -245,9 +245,15 @@ public class ReporteEstadisticoImplem implements ReporteEstadisticoServicio{
 
     @Override
     public List<String> generarRecomendacionesParaInvestigadores() {
+
         List<String> recomendaciones = new ArrayList<>();
         List<EstadisticasAreaDTO> estadisticasArea = obtenerEstadisticoOrdenadoEnsayos();
-        List<EstadisticasInvestigadorDTO> estadisticasInvestigador= obtenerEstadisticoOrdenadoPorInvestigador();
+        List<EstadisticasInvestigadorDTO> estadisticasInvestigador = obtenerEstadisticoOrdenadoPorInvestigador();
+
+        if ((estadisticasInvestigador == null || estadisticasInvestigador.isEmpty()) || (estadisticasArea == null || estadisticasArea.isEmpty())) {
+            recomendaciones.add("No hay investigadores o Areas para recomendación.");
+            return recomendaciones;
+        }
 
         Map<String, EstadisticasAreaDTO> mapaAreaDTO = estadisticasArea.stream()
                 .collect(Collectors.toMap(EstadisticasAreaDTO::getNombreArea, area -> area));
@@ -255,66 +261,84 @@ public class ReporteEstadisticoImplem implements ReporteEstadisticoServicio{
         for(EstadisticasInvestigadorDTO investigador : estadisticasInvestigador){
 
             String areaFuerte = investigador.getAreaFuerte();
-            Map<String, Integer> exitosPorArea = investigador.getExitoPorArea();
+            Map<String, Integer> exitosporArea = investigador.getExitoPorArea();
 
-            int exitosEnAreaFuerteInvestigador = exitosPorArea.getOrDefault(areaFuerte, 0);
-            int exitosTotalesEnArea= mapaAreaDTO.containsKey(areaFuerte)?mapaAreaDTO.get(areaFuerte).getExitososEnsayos():0;
+            boolean recomendacionDada = false;
 
-            double porcentajeExitoAreaFuerte = exitosTotalesEnArea!=0?
-                    (double) exitosEnAreaFuerteInvestigador/exitosTotalesEnArea * 100:0;
+            if(exitosporArea == null || exitosporArea.isEmpty()){
+                recomendaciones.add("El investigador " + investigador.getNombreInvestigador() + " no tiene datos para recomendación.");
+                continue;
+            }
 
             double porcentajeExitoInvestigadorEnsayos = investigador.getTasaExitoEnsayos();
             double porcentajeExitoInvestigadorExperimentos = investigador.getTasaExitoExperimentos();
 
 
-            if(porcentajeExitoAreaFuerte>=30 && porcentajeExitoInvestigadorExperimentos>=50 && porcentajeExitoInvestigadorEnsayos>=50){
-                boolean reasignacion = false;
-                for(String otraArea : exitosPorArea.keySet()){
+
+            if(porcentajeExitoInvestigadorExperimentos >= 50 && porcentajeExitoInvestigadorEnsayos >= 50){
+                for(String otraArea: exitosporArea.keySet()){
                     if(otraArea.equals(areaFuerte)) continue;
 
                     EstadisticasAreaDTO areaDTO = mapaAreaDTO.get(otraArea);
 
                     if(areaDTO!=null){
-                        boolean necesitaMejoraExperimentos = areaDTO.getTasaExitoExperimentos() < 50;
-                        boolean necesitaMejoraEnsayos = areaDTO.getTasaExitoEnsayos() < 50;
+                        boolean necesitaMejorarExperimentos = areaDTO.getTasaExitoExperimentos() < 50;
+                        boolean necesitaMejorarEnsayos = areaDTO.getTasaExitoEnsayos() < 50;
 
-                        if (necesitaMejoraEnsayos||necesitaMejoraExperimentos){
-                            String tipo = necesitaMejoraEnsayos && necesitaMejoraExperimentos ? "Ensayos y Experimentos" :
-                                    (necesitaMejoraEnsayos ? "Ensayos" : "Experimentos");
+                        if(necesitaMejorarEnsayos || necesitaMejorarExperimentos){
+                            String tipo = "";
+                            if (necesitaMejorarEnsayos && necesitaMejorarExperimentos){
+                                tipo="Ensayos y Experimentos";
+                            }else if(necesitaMejorarEnsayos){
+                                tipo="Ensayos";
+                            }else{
+                                tipo="Experimentos";
+                            }
 
-                            recomendaciones.add("Investigador "+ investigador.getNombreInvestigador()+
-                                    " tiene un buen desempeño en el área "+ areaFuerte + " y buen desempeño en general"+
-                                    ". Se recomienda reasignarlo a la área "+ otraArea +
-                                    " para apoyar en la mejora de los "+ tipo.toLowerCase() +" del área  " + otraArea +".");
+                            recomendaciones.add("Investigador " + investigador.getNombreInvestigador() +
+                                    " tiene un buen desempeño en el área " + areaFuerte + " y buen desempeño en general." +
+                                    " Se recomienda reasignarlo al área " + otraArea +
+                                    " para apoyar en la mejora de los " + tipo.toLowerCase() + " del área " + otraArea + ".");
 
-                            reasignacion=true;
+                            recomendacionDada = true;
                             break;
                         }
                     }
                 }
 
-                if(!reasignacion){
-                    String peorArea = exitosPorArea.entrySet().stream()
+            }
+
+            if(!recomendacionDada){
+                int numeroAreas = exitosporArea.size();
+
+                if(porcentajeExitoInvestigadorExperimentos >= 50 && porcentajeExitoInvestigadorEnsayos >= 50){
+                    if(numeroAreas == 1){
+                        recomendaciones.add("Investigador " + investigador.getNombreInvestigador() +
+                                " tiene un buen desempeño en general y su mejor desempeño se encuentra en el área de " + areaFuerte + ".");
+                    } else {
+                        String peorArea = exitosporArea.entrySet().stream()
+                                .min(Map.Entry.comparingByValue())
+                                .map(Map.Entry::getKey)
+                                .orElse("Ninguna");
+
+                        recomendaciones.add("El investigador " + investigador.getNombreInvestigador() +
+                                " tiene un buen desempeño en general, destacándose especialmente en el área de " + areaFuerte +
+                                ". Se le sugiere brindar apoyo en el área de " + peorArea + ", ya sea participando en experimentos o ensayos para fortalecer su experiencia en esa área.");
+                    }
+
+                }else {
+                    String peorArea = exitosporArea.entrySet().stream()
                             .min(Map.Entry.comparingByValue())
                             .map(Map.Entry::getKey)
-                            .orElse("Ninguna");
+                            .orElse("Error");
 
-                    recomendaciones.add("Investigador "+ investigador.getNombreInvestigador()+
-                            " tiene un buen desempeño en general y su mejor desempeño en el área de "+ areaFuerte +
-                            " se le sugiere asistir en el area de "+ peorArea +".");
+                    recomendaciones.add("Investigador " + investigador.getNombreInvestigador() +
+                            " necesita mejorar sus ensayos o experimentos en general, específicamente en el área de " + peorArea + ".");
                 }
-            }else {
-
-                String peorArea = exitosPorArea.entrySet().stream()
-                        .min(Map.Entry.comparingByValue())
-                        .map(Map.Entry::getKey)
-                        .orElse("Ninguna");
-
-                recomendaciones.add("Investigador " + investigador.getNombreInvestigador() +
-                        " necesita mejorar sus ensayos o experimentos en general, especificamente en el área de " + peorArea + ".");
-
             }
+
         }
+
         return recomendaciones;
     }
 

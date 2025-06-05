@@ -7,22 +7,23 @@ public class EstadisticasInvestigadorDTO {
     private String areaFuerte;
     private double tasaExitoExperimentos;
     private double tasaExitoEnsayos;
-    private Map<String, Integer> exitoPorArea;
+    private Map<String, Integer> experimentoPorArea;
 
-    public EstadisticasInvestigadorDTO(String nombreInvestigador, String areaFuerte, double tasaExitoExperimentos, double tasaExitoEnsayos, Map<String, Integer> exitoPorArea) {
+
+    public EstadisticasInvestigadorDTO(String nombreInvestigador, String areaFuerte, double tasaExitoExperimentos, double tasaExitoEnsayos, Map<String, Integer> experimentoPorArea) {
         this.nombreInvestigador = nombreInvestigador;
         this.areaFuerte = areaFuerte;
         this.tasaExitoExperimentos = tasaExitoExperimentos;
         this.tasaExitoEnsayos = tasaExitoEnsayos;
-        this.exitoPorArea = exitoPorArea;
+        this.experimentoPorArea = experimentoPorArea;
     }
 
-    public Map<String, Integer> getExitoPorArea() {
-        return exitoPorArea;
+    public Map<String, Integer> getExperimentoPorArea() {
+        return experimentoPorArea;
     }
 
     public void setExitoPorArea(Map<String, Integer> exitoPorArea) {
-        this.exitoPorArea = exitoPorArea;
+        this.experimentoPorArea = exitoPorArea;
     }
 
     public String getNombreInvestigador() {

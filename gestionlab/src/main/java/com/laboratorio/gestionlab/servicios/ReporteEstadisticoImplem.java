@@ -186,16 +186,17 @@ public class ReporteEstadisticoImplem implements ReporteEstadisticoServicio{
                 int totalEnsayos = 0;
                 int exitososEnsayos = 0;
 
-                Map<String, Integer> exitosPorArea = new HashMap<>();
+                Map<String, Integer> experimentosPorArea = new HashMap<>();
 
                 for (Experimento experimento : experimentos) {
                     if (!"En Proceso".equalsIgnoreCase(experimento.getEstado())) {
                         totalExperimentos++;
                         if ("Exitoso".equalsIgnoreCase(experimento.getEstado())) {
                             exitososExperimentos++;
+
                         }
                         String nombreArea = experimento.getAreaCientifica().getNombre();
-                        exitosPorArea.put(nombreArea, exitosPorArea.getOrDefault(nombreArea, 0) + 1);
+                        experimentosPorArea.put(nombreArea, experimentosPorArea.getOrDefault(nombreArea, 0) + 1);
                     }
 
                     List<Ensayo> ensayos = ensayoService.listarEnsayosPorExperimentoId(experimento.getId());
@@ -218,7 +219,7 @@ public class ReporteEstadisticoImplem implements ReporteEstadisticoServicio{
                     tasaExitoEnsayos = BigDecimal.valueOf((double) (exitososEnsayos * 100) / totalEnsayos).setScale(2, RoundingMode.HALF_UP).doubleValue();
                 }
 
-                String areaFuerte = exitosPorArea.entrySet().stream()
+                String areaFuerte = experimentosPorArea.entrySet().stream()
                         .max(Map.Entry.comparingByValue())
                         .map(Map.Entry::getKey)
                         .orElse("No tiene datos");
@@ -229,7 +230,7 @@ public class ReporteEstadisticoImplem implements ReporteEstadisticoServicio{
                                 areaFuerte,
                                 tasaExitoExperimentos,
                                 tasaExitoEnsayos,
-                                exitosPorArea
+                                experimentosPorArea
                         )
                 );
 
@@ -261,11 +262,11 @@ public class ReporteEstadisticoImplem implements ReporteEstadisticoServicio{
         for(EstadisticasInvestigadorDTO investigador : estadisticasInvestigador){
 
             String areaFuerte = investigador.getAreaFuerte();
-            Map<String, Integer> exitosporArea = investigador.getExitoPorArea();
+            Map<String, Integer> experimentosporArea = investigador.getExperimentoPorArea();
 
             boolean recomendacionDada = false;
 
-            if(exitosporArea == null || exitosporArea.isEmpty()){
+            if(experimentosporArea == null || experimentosporArea.isEmpty()){
                 recomendaciones.add("El investigador " + investigador.getNombreInvestigador() + " no tiene datos para recomendación.");
                 continue;
             }
@@ -276,7 +277,7 @@ public class ReporteEstadisticoImplem implements ReporteEstadisticoServicio{
 
 
             if(porcentajeExitoInvestigadorExperimentos >= 50 && porcentajeExitoInvestigadorEnsayos >= 50){
-                for(String otraArea: exitosporArea.keySet()){
+                for(String otraArea: experimentosporArea.keySet()){
                     if(otraArea.equals(areaFuerte)) continue;
 
                     EstadisticasAreaDTO areaDTO = mapaAreaDTO.get(otraArea);
@@ -309,14 +310,14 @@ public class ReporteEstadisticoImplem implements ReporteEstadisticoServicio{
             }
 
             if(!recomendacionDada){
-                int numeroAreas = exitosporArea.size();
+                int numeroAreas = experimentosporArea.size();
 
                 if(porcentajeExitoInvestigadorExperimentos >= 50 && porcentajeExitoInvestigadorEnsayos >= 50){
                     if(numeroAreas == 1){
                         recomendaciones.add("Investigador " + investigador.getNombreInvestigador() +
                                 " tiene un buen desempeño en general y su mejor desempeño se encuentra en el área de " + areaFuerte + ".");
                     } else {
-                        String peorArea = exitosporArea.entrySet().stream()
+                        String peorArea = experimentosporArea.entrySet().stream()
                                 .min(Map.Entry.comparingByValue())
                                 .map(Map.Entry::getKey)
                                 .orElse("Ninguna");
@@ -327,7 +328,7 @@ public class ReporteEstadisticoImplem implements ReporteEstadisticoServicio{
                     }
 
                 }else {
-                    String peorArea = exitosporArea.entrySet().stream()
+                    String peorArea = experimentosporArea.entrySet().stream()
                             .min(Map.Entry.comparingByValue())
                             .map(Map.Entry::getKey)
                             .orElse("Error");

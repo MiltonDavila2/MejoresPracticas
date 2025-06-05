@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Reportes por Investigador</title>
+  <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<h1>Buscar Reportes por Investigador</h1>
+
+<form action="#" th:action="@{/reportes/buscar}" method="post">
+  <div>
+    <label for="investigadorId">Selecciona un Investigador:</label>
+    <select id="investigadorId" name="investigadorId" required>
+      <option value="" disabled selected>--Seleccione--</option>
+      <option th:each="investigador : ${investigadores}"
+              th:value="${investigador.id}"
+              th:text="${investigador.nombre}"
+              th:selected="${investigador.id} == ${investigadorSeleccionado}">
+      </option>
+    </select>
+  </div>
+  <button type="submit">Buscar</button>
+</form>
+
+<div th:if="${reportes != null}">
+  <h2>Resultados:</h2>
+  <table>
+    <thead>
+    <tr>
+      <th>Id</th>
+      <th>Texto del Reporte</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="reporte : ${reportes}">
+      <td th:text="${reporte.id}"></td>
+      <td th:text="${reporte.texto}"></td>
+    </tr>
+    <tr th:if="${#lists.isEmpty(reportes)}">
+      <td colspan="2">No se encontraron reportes para este investigador.</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>
+

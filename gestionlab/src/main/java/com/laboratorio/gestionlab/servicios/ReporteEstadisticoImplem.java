@@ -2,10 +2,8 @@ package com.laboratorio.gestionlab.servicios;
 
 import com.laboratorio.gestionlab.DTO.EstadisticasAreaDTO;
 import com.laboratorio.gestionlab.DTO.EstadisticasInvestigadorDTO;
-import com.laboratorio.gestionlab.entidades.AreaCientifica;
-import com.laboratorio.gestionlab.entidades.Ensayo;
-import com.laboratorio.gestionlab.entidades.Experimento;
-import com.laboratorio.gestionlab.entidades.Investigador;
+import com.laboratorio.gestionlab.entidades.*;
+import com.laboratorio.gestionlab.repositorios.ReporteRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +26,9 @@ public class ReporteEstadisticoImplem implements ReporteEstadisticoServicio{
 
     @Autowired
     private EnsayoService ensayoService;
+
+    @Autowired
+    private ReporteRepositorio reporteRepositorio;
 
     @Override
     public List<EstadisticasAreaDTO> obtenerEstadisticoOrdenadoEnsayos() {
@@ -342,5 +343,27 @@ public class ReporteEstadisticoImplem implements ReporteEstadisticoServicio{
 
         return recomendaciones;
     }
+
+    @Override
+    public void subirRecomendaciones() {
+        List<Investigador> investigadores = investigadorServicio.ListarInvestigadores();
+        List<String> recomendaciones = generarRecomendacionesParaInvestigadores();
+
+
+        for (int i = 0; i < investigadores.size(); i++) {
+            Investigador investigador = investigadores.get(i);
+
+
+            String recomendacion = i < recomendaciones.size() ? recomendaciones.get(i) : null;
+
+            if (recomendacion != null &&
+                    !reporteRepositorio.existsByTextoAndInvestigador(recomendacion, investigador)) {
+                Reporte reporte = new Reporte(recomendacion, investigador);
+                reporteRepositorio.save(reporte);
+            }
+
+        }
+    }
+
 
 }

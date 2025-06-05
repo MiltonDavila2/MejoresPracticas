@@ -13,4 +13,6 @@ public interface ReporteEstadisticoServicio {
     public List<EstadisticasInvestigadorDTO> obtenerEstadisticoOrdenadoPorInvestigador();
 
     public List<String> generarRecomendacionesParaInvestigadores();
+
+    public void subirRecomendaciones();
 }

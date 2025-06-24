@@ -2,8 +2,7 @@ package com.laboratorio.gestionlab.controladores;
 
 import com.laboratorio.gestionlab.DTO.EstadisticasAreaDTO;
 import com.laboratorio.gestionlab.DTO.EstadisticasInvestigadorDTO;
-import com.laboratorio.gestionlab.repositorios.ReporteRepositorio;
-import com.laboratorio.gestionlab.servicios.InvestigadorServicio;
+import com.laboratorio.gestionlab.servicios.RecomendacionServicio;
 import com.laboratorio.gestionlab.servicios.ReporteEstadisticoServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,10 +23,7 @@ public class ControladorEstadisticas {
     ReporteEstadisticoServicio servicio;
 
     @Autowired
-    InvestigadorServicio investigadorServicio;
-
-    @Autowired
-    ReporteRepositorio reporteRepositorio;
+    private RecomendacionServicio recomendacionServicio;
 
     @GetMapping("/area_ensayos")
     public String estadisticasAreaEnsayos(Model modelo) {
@@ -65,8 +61,8 @@ public class ControladorEstadisticas {
 
     @GetMapping("/actualizar_recomendaciones")
     public String actualizarRecomendaciones(){
-        servicio.subirRecomendaciones();
-        return "redirect:/estadisticas/recomendaciones";
+        recomendacionServicio.subirRecomendaciones();
+        return "redirect:/reportes";
     }
 
     @GetMapping("")

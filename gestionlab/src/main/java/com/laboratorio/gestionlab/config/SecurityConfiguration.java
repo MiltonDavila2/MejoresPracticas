@@ -45,7 +45,8 @@ public class SecurityConfiguration {
                         .requestMatchers("/login",
                                 "/css/**",
                                 "/js/**",
-                                "/img/**"
+                                "/img/**",
+                                "/enviar/generar"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )

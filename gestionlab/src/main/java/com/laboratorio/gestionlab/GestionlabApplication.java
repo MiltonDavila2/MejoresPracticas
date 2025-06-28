@@ -3,8 +3,6 @@ package com.laboratorio.gestionlab;
 import com.laboratorio.gestionlab.entidades.Rol;
 import com.laboratorio.gestionlab.entidades.Usuario;
 import com.laboratorio.gestionlab.repositorios.RolRepositorio;
-import com.laboratorio.gestionlab.servicios.AreaCientificaServicio;
-import com.laboratorio.gestionlab.servicios.EnsayoService;
 import com.laboratorio.gestionlab.servicios.UsuarioServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -25,11 +23,6 @@ public class GestionlabApplication implements CommandLineRunner {
 	@Autowired
 	RolRepositorio repositoriorol;
 
-	@Autowired
-	AreaCientificaServicio areaCientificaServicio;
-
-	@Autowired
-	EnsayoService ensayoService;
 
 	@Autowired
 	BCryptPasswordEncoder passwordEncoder;
